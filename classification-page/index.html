@@ -1,70 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>Arabic Word Classification Diagram</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arabic Word Classification</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <h1>تصنيف الكلمة في اللغة العربية / Arabic Word Classification</h1>
-  <div class="diagram" id="diagram">
+  <div id="app">
+    <header>
+      <h1>تصنيف الكلمة | Word Classification</h1>
+      <div class="legend">
+        <span class="dot noun"></span> اسم
+        <span class="dot verb"></span> فعل
+        <span class="dot particle"></span> حرف
+      </div>
+    </header>
 
-    <!-- Central Node -->
-    <div class="node central" data-key="word" style="top: 50px; left: 500px;">
-      كلمة<br/>Word
-    </div>
-
-    <!-- Main Branches -->
-    <div class="node noun" data-key="noun" style="top: 200px; left: 200px;">
-      اسم<br/>Noun
-    </div>
-    <div class="node verb" data-key="verb" style="top: 200px; left: 500px;">
-      فعل<br/>Verb
-    </div>
-    <div class="node particle" data-key="particle" style="top: 200px; left: 800px;">
-      حرف<br/>Particle
+    <div id="diagram-container">
+      <svg id="connectors" aria-hidden="true"></svg>
+      <div id="nodes"></div>
     </div>
 
-    <!-- Noun Subcategories -->
-    <div class="node five-names" data-key="five-names" style="top: 350px; left: 50px;">
-      الأسماء الخمسة<br/>Five-Name Declension
-    </div>
-    <div class="node pronouns" data-key="pronouns" style="top: 350px; left: 200px;">
-      الضمائر<br/>Pronouns
-    </div>
-    <div class="node representative" data-key="representative" style="top: 350px; left: 350px;">
-      النائب<br/>Representative
-    </div>
-    <div class="node noun-derived" data-key="noun-derived" style="top: 350px; left: 500px;">
-      اشتقاق من الاسم<br/>Derived from Noun
-    </div>
-
-    <!-- Verb Subcategories -->
-    <div class="node past" data-key="past" style="top: 350px; left: 500px;">
-      ماضٍ<br/>Past
-    </div>
-    <div class="node present" data-key="present" style="top: 350px; left: 650px;">
-      مضارع<br/>Present
-    </div>
-    <div class="node future" data-key="future" style="top: 350px; left: 800px;">
-      مستقبل<br/>Future
-    </div>
-
-    <!-- Particle Subcategories -->
-    <div class="node particle-derived" data-key="particle-derived" style="top: 350px; left: 950px;">
-      اشتقاق من الفعل<br/>Derived from Verb
-    </div>
-
-    <!-- Example: Connectors -->
-    <div class="line" data-from="word" data-to="noun"></div>
-    <div class="line" data-from="word" data-to="verb"></div>
-    <div class="line" data-from="word" data-to="particle"></div>
-
-    <!-- Add more connectors for all parent-child relationships -->
+    <aside id="info-panel" class="hidden" dir="rtl">
+      <button id="close-info" aria-label="Close">×</button>
+      <div id="info-content"></div>
+    </aside>
   </div>
 
-  <div class="tooltip" id="tooltip"></div>
-  <div id="details-container"></div>
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
