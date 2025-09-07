@@ -10,17 +10,46 @@
 <h1>تصنيف الكلمة في اللغة العربية / Arabic Word Classification</h1>
 
 <div class="diagram" id="diagram">
-  <!-- Nodes -->
+  <!-- Central Node -->
   <div class="node word" data-key="word">كلمة<br/>Word</div>
+
+  <!-- Main Branches -->
   <div class="node noun" data-key="noun">اسم<br/>Noun</div>
   <div class="node verb" data-key="verb">فعل<br/>Verb</div>
   <div class="node derived" data-key="derived">مشتق من الفعل<br/>Derived from Verb</div>
+
+  <!-- Noun Subcategories -->
+  <div class="node definite" data-key="definite">معرفة<br/>Definite</div>
   <div class="node proper" data-key="proper">اسم علم<br/>Proper Noun</div>
   <div class="node pronoun" data-key="pronoun">ضمير<br/>Pronoun</div>
+  <div class="node demonstrative" data-key="demonstrative">اسم الإشارة<br/>Demonstrative</div>
+  <div class="node relative" data-key="relative">الاسم الموصول<br/>Relative Noun</div>
+  <div class="node withal" data-key="withal">المعرف بـ ال<br/>With "al"</div>
+  <div class="node annexed" data-key="annexed">المضاف إلى معرفة<br/>Annexed to Definite</div>
+  <div class="node indefinite" data-key="indefinite">نكرة<br/>Indefinite</div>
 
-  <!-- Example connector lines (adjust positions/lengths to match diagram) -->
-  <div class="line" style="top: 320px; left: 580px; width: 220px; height: 2px;"></div>
-  <div class="line" style="top: 320px; left: 420px; width: 2px; height: -170px;"></div>
+  <!-- Verb Subcategories -->
+  <div class="node past" data-key="past">ماض<br/>Past</div>
+  <div class="node present" data-key="present">مضارع<br/>Present</div>
+  <div class="node future" data-key="future">مستقبل<br/>Future</div>
+  <div class="node imperative" data-key="imperative">أمر<br/>Imperative</div>
+  <div class="node prohibition" data-key="prohibition">نهي<br/>Prohibition</div>
+  <div class="node wish" data-key="wish">تمني<br/>Wish</div>
+  <div class="node hope" data-key="hope">ترجي<br/>Hope</div>
+  <div class="node call" data-key="call">نداء<br/>Call</div>
+  <div class="node interrogation" data-key="interrogation">استفهام<br/>Interrogation</div>
+  <div class="node amazement" data-key="amazement">تعجب<br/>Amazement</div>
+
+  <!-- Derived from Verb -->
+  <div class="node activep" data-key="activep">اسم الفاعل<br/>Active Participle</div>
+  <div class="node passivep" data-key="passivep">اسم المفعول<br/>Passive Participle</div>
+  <div class="node timen" data-key="timen">اسم الزمان<br/>Time Noun</div>
+  <div class="node placen" data-key="placen">اسم المكان<br/>Place Noun</div>
+  <div class="node instrumentn" data-key="instrumentn">اسم الآلة<br/>Instrument Noun</div>
+
+  <!-- Connectors (you’ll adjust positions to match your diagram) -->
+  <!-- Example: central to noun -->
+  <div class="line" style="top: 320px; left: 500px; width: -300px; height: 2px;"></div>
 </div>
 
 <div class="tooltip" id="tooltip"></div>
