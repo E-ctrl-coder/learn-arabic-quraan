@@ -1,55 +1,86 @@
-/* Engine for fixed-shape, bilingual, fully interactive diagram.
-   Paste your COMPLETE classification below in the 'classification' array.
-   Node schema:
-   {
-     id: "unique",
-     labelAr: "Arabic",
-     labelEn: "English or ''",
-     group: "noun" | "verb" | "particle",
-     x: 123, y: 456, // absolute pixels
-     children: ["child1","child2",...]
-   }
+/* Paste your FULL taxonomy below. Node schema:
+  {
+    id:       "uniqueId",
+    labelAr:  "Arabic Text",
+    labelEn:  "English Text",  // or "" if none
+    group:    "noun"|"verb"|"particle",
+    x:        100, y: 200,      // absolute px for your shape
+    children: ["childId1","childId2",...]
+  }
 */
+
 const classification = [
-  // ===== PASTE YOUR FULL CLASSIFICATION HERE =====
-  // Example seed (remove if you’re pasting full data):
-  { id:"root", labelAr:"الكلمة", labelEn:"Word", group:"noun", x:900, y:60, children:["noun","verb","particle"] },
+  // ROOT
+  { id:"root",     labelAr:"الكلمة",            labelEn:"Word",        group:"noun",     x:900,  y:60,  children:["verb","particle","noun"] },
 
-  // Noun branch — sample items (replace with your complete list and positions)
-  { id:"noun", labelAr:"الاسم", labelEn:"Noun", group:"noun", x:600, y:220, children:["proper","pronoun","derived","inflected","diptote"] },
-  { id:"proper", labelAr:"اسم علم", labelEn:"Proper Noun", group:"noun", x:420, y:380, children:[] },
-  { id:"pronoun", labelAr:"الضمير", labelEn:"Pronoun", group:"noun", x:560, y:380, children:[] },
-  { id:"derived", labelAr:"اسم مشتق", labelEn:"Derived Noun", group:"noun", x:700, y:380, children:["ismFael","ismMafool","sifaMushabbaha","sighatMubalaghah","ismTafdeel","ismZaman","ismMakan","ismAla"] },
-  { id:"inflected", labelAr:"المعرب", labelEn:"Inflected", group:"noun", x:840, y:380, children:[] },
-  { id:"diptote", labelAr:"الممنوع من الصرف", labelEn:"Diptote", group:"noun", x:980, y:380, children:[] },
+  // VERB BRANCH
+  { id:"verb",     labelAr:"فعل",               labelEn:"Verb",        group:"verb",     x:300,  y:260, children:["past","present","future","imperative","passive"] },
+  { id:"past",     labelAr:"الماضي",            labelEn:"Past",        group:"verb",     x:180,  y:420, children:[] },
+  { id:"present",  labelAr:"المضارع",           labelEn:"Present",     group:"verb",     x:300,  y:420, children:[] },
+  { id:"future",   labelAr:"المستقبل",          labelEn:"Future",      group:"verb",     x:420,  y:420, children:[] },
+  { id:"imperative",labelAr:"الأمر",            labelEn:"Imperative",  group:"verb",     x:240,  y:560, children:[] },
+  { id:"passive",  labelAr:"مبني للمجهول",      labelEn:"Passive",     group:"verb",     x:360,  y:560, children:[] },
 
-  { id:"ismFael", labelAr:"اسم الفاعل", labelEn:"Active Participle", group:"noun", x:660, y:540, children:[] },
-  { id:"ismMafool", labelAr:"اسم المفعول", labelEn:"Passive Participle", group:"noun", x:740, y:540, children:[] },
-  { id:"sifaMushabbaha", labelAr:"الصفة المشبهة", labelEn:"Resembling Adjective", group:"noun", x:820, y:540, children:[] },
-  { id:"sighatMubalaghah", labelAr:"صيغة المبالغة", labelEn:"Form of Exaggeration", group:"noun", x:900, y:540, children:[] },
-  { id:"ismTafdeel", labelAr:"اسم التفضيل", labelEn:"Elative", group:"noun", x:980, y:540, children:[] },
-  { id:"ismZaman", labelAr:"اسم الزمان", labelEn:"Noun of Time", group:"noun", x:1060, y:540, children:[] },
-  { id:"ismMakan", labelAr:"اسم المكان", labelEn:"Noun of Place", group:"noun", x:1140, y:540, children:[] },
-  { id:"ismAla", labelAr:"اسم الآلة", labelEn:"Instrument Noun", group:"noun", x:1220, y:540, children:[] },
+  // PARTICLE BRANCH
+  { id:"particle", labelAr:"حرف",               labelEn:"Particle",    group:"particle", x:900,  y:260, children:[
+      "linking","interrogation","vocative","conditional","explanation","emphasis",
+      "exception","dissuasion","wishHope","alert","joulb","reasonPurpose","specMin","oath","defParticles"
+    ]
+  },
+  { id:"linking",        labelAr:"الربط",            labelEn:"Linking",                group:"particle", x:780, y:420, children:[] },
+  { id:"interrogation",  labelAr:"الاستفهام",        labelEn:"Interrogation",          group:"particle", x:900, y:420, children:[] },
+  { id:"vocative",       labelAr:"النداء",           labelEn:"Vocative",              group:"particle", x:1020,y:420, children:[] },
+  { id:"conditional",    labelAr:"الشرط",            labelEn:"Conditional",           group:"particle", x:780, y:560, children:[] },
+  { id:"explanation",    labelAr:"التفسير",          labelEn:"Explanation",           group:"particle", x:900, y:560, children:[] },
+  { id:"emphasis",       labelAr:"التوكيد",          labelEn:"Emphasis",              group:"particle", x:1020,y:560, children:[] },
+  { id:"exception",      labelAr:"الاستثناء",        labelEn:"Exception",             group:"particle", x:780, y:700, children:[] },
+  { id:"dissuasion",     labelAr:"التحضيض",          labelEn:"Dissuasion",            group:"particle", x:900, y:700, children:[] },
+  { id:"wishHope",       labelAr:"التمني والرجاء",    labelEn:"Wish & Hope",           group:"particle", x:1020,y:700, children:[] },
+  { id:"alert",          labelAr:"التنبيه",          labelEn:"Warning",               group:"particle", x:780, y:840, children:[] },
+  { id:"joulb",          labelAr:"الجولب",           labelEn:"Joulb",                 group:"particle", x:900, y:840, children:[] },
+  { id:"reasonPurpose",  labelAr:"التعليل والغاية",   labelEn:"Reason & Purpose",      group:"particle", x:1020,y:840, children:[] },
+  { id:"specMin",        labelAr:"التخصيص والتقليل", labelEn:"Specification & Diminution",group:"particle", x:780, y:980, children:[] },
+  { id:"oath",           labelAr:"القسم",            labelEn:"Oath",                  group:"particle", x:900, y:980, children:[] },
+  { id:"defParticles",   labelAr:"حروف تعريف",       labelEn:"Defining Particles",    group:"particle", x:1020,y:980, children:[] },
 
-  // Verb branch — add your complete set (Past/Present/Future/Imperative + subtypes if any)
-  { id:"verb", labelAr:"الفعل", labelEn:"Verb", group:"verb", x:900, y:220, children:["past","present","future","imperative"] },
-  { id:"past", labelAr:"الماضي", labelEn:"Past", group:"verb", x:820, y:380, children:[] },
-  { id:"present", labelAr:"المضارع", labelEn:"Present", group:"verb", x:900, y:380, children:[] },
-  { id:"future", labelAr:"المستقبل", labelEn:"Future", group:"verb", x:980, y:380, children:[] },
-  { id:"imperative", labelAr:"الأمر", labelEn:"Imperative", group:"verb", x:1060, y:380, children:[] },
+  // NOUN BRANCH
+  { id:"noun",     labelAr:"اسم",               labelEn:"Noun",        group:"noun",     x:1500, y:260, children:["properNoun","representative","derivedVerb"] },
+  { id:"properNoun",    labelAr:"اسم علم",         labelEn:"Proper Noun",            group:"noun", x:1360, y:420, children:[] },
+  { id:"representative",labelAr:"تمثيلي",          labelEn:"Representative",         group:"noun", x:1500, y:420, children:["relative","demonstrative","pronouns"] },
+  { id:"derivedVerb",   labelAr:"مشتق من الفعل",   labelEn:"Derived from Verb",      group:"noun", x:1640, y:420, children:[
+      "ismMafool","ismFael","ismAla","ismZaman","ismMakan","sifaMush","ismTafdeel","ismMubalagh"
+    ]
+  },
 
-  // Particle branch — add complete sets (prepositions, conjunctions, other)
-  { id:"particle", labelAr:"الحرف", labelEn:"Particle", group:"particle", x:1200, y:220, children:["preps","conj","otherParticles"] },
-  { id:"preps", labelAr:"حروف الجر", labelEn:"Prepositions", group:"particle", x:1120, y:380, children:[] },
-  { id:"conj", labelAr:"حروف العطف", labelEn:"Conjunctions", group:"particle", x:1200, y:380, children:[] },
-  { id:"otherParticles", labelAr:"حروف أخرى", labelEn:"Other Particles", group:"particle", x:1280, y:380, children:[] },
-  // ===== END OF SAMPLE =====
+  { id:"relative",       labelAr:"اسم موصول",       labelEn:"Relative Pronoun",       group:"noun", x:1360, y:580, children:[] },
+  { id:"demonstrative",  labelAr:"اسم إشارة",       labelEn:"Demonstrative",          group:"noun", x:1500, y:580, children:[] },
+
+  { id:"pronouns",       labelAr:"ضمائر",           labelEn:"Pronouns",              group:"noun", x:1640, y:580, children:[
+      "subjectPronoun","possPronoun","addressPronoun","absentPronoun","speakerPronoun","objectPronoun"
+    ]
+  },
+  { id:"subjectPronoun", labelAr:"ضمير رفع",        labelEn:"Subject Pronoun",        group:"noun", x:1400, y:740, children:[] },
+  { id:"possPronoun",    labelAr:"ملكية",           labelEn:"Possessive Pronoun",     group:"noun", x:1520, y:740, children:["possVerb","possNoun"] },
+  { id:"addressPronoun", labelAr:"ضمير مخاطب",      labelEn:"Address Pronoun",        group:"noun", x:1640, y:740, children:[] },
+  { id:"absentPronoun",  labelAr:"ضمير غائب",       labelEn:"Absent Pronoun",         group:"noun", x:1760, y:740, children:[] },
+  { id:"speakerPronoun", labelAr:"ضمير متكلم",      labelEn:"Speaker Pronoun",        group:"noun", x:1880, y:740, children:[] },
+  { id:"objectPronoun",  labelAr:"ضمير نصب",        labelEn:"Object Pronoun",         group:"noun", x:2000, y:740, children:[] },
+  { id:"possVerb",       labelAr:"ملكية فعل",       labelEn:"Possessive Verb",        group:"noun", x:1500, y:880, children:[] },
+  { id:"possNoun",       labelAr:"ملكية اسم",       labelEn:"Possessive Noun",        group:"noun", x:1640, y:880, children:[] },
+
+  { id:"ismMafool",      labelAr:"اسم المفعول",     labelEn:"Passive Participle",     group:"noun", x:1540, y:580, children:[] },
+  { id:"ismFael",        labelAr:"اسم الفاعل",      labelEn:"Active Participle",      group:"noun", x:1660, y:580, children:[] },
+  { id:"sifaMush",       labelAr:"صفة مشبهة",       labelEn:"Resembling Adjective",    group:"noun", x:1780, y:580, children:[] },
+  { id:"ismTafdeel",     labelAr:"اسم التفضيل",     labelEn:"Elative",                group:"noun", x:1900, y:580, children:[] },
+  { id:"ismAla",         labelAr:"اسم آلة",         labelEn:"Instrument Noun",         group:"noun", x:1540, y:740, children:[] },
+  { id:"ismZaman",       labelAr:"اسم زمان",        labelEn:"Noun of Time",           group:"noun", x:1660, y:740, children:[] },
+  { id:"ismMakan",       labelAr:"اسم مكان",        labelEn:"Noun of Place",          group:"noun", x:1780, y:740, children:[] },
+  { id:"ismMubalagh",    labelAr:"اسم مبالغة",      labelEn:"Form of Exaggeration",    group:"noun", x:1900, y:740, children:[] }
 ];
 
-// ————————————————————————— ENGINE —————————————————————————
+/* ————————————————————————— ENGINE ————————————————————————— */
 const nodesById = new Map(classification.map(n => [n.id, n]));
-const childrenOf = new Map(classification.map(n => [n.id, n.children || []]));
+const childrenOf = new Map(classification.map(n => [n.id, n.children||[]]));
 const parentsOf = new Map();
 classification.forEach(n => (n.children||[]).forEach(c => parentsOf.set(c, n.id)));
 
@@ -60,121 +91,94 @@ const infoPanel = document.getElementById("info-panel");
 const closeInfo = document.getElementById("close-info");
 const infoContent = document.getElementById("info-content");
 
-// Expand canvas if needed based on max coordinates
+// autosize canvas
 (function autosize(){
   const pad = 200;
   const maxX = Math.max(...classification.map(n => n.x)) + pad;
   const maxY = Math.max(...classification.map(n => n.y)) + pad;
-  svg.setAttribute("width", String(maxX));
-  svg.setAttribute("height", String(maxY));
-  nodesLayer.style.width = `${maxX}px`;
+  svg.setAttribute("width",  maxX);
+  svg.setAttribute("height", maxY);
+  nodesLayer.style.width  = `${maxX}px`;
   nodesLayer.style.height = `${maxY}px`;
 })();
 
-function makeNodeEl(node){
+function makeNodeEl(n){
   const div = document.createElement("div");
   div.className = "node";
-  div.dataset.id = node.id;
-  div.dataset.group = node.group;
-  div.style.left = `${node.x}px`;
-  div.style.top = `${node.y}px`;
-
-  const ar = document.createElement("span");
-  ar.className = "ar";
-  ar.textContent = node.labelAr;
-
-  const en = document.createElement("span");
-  en.className = "en";
-  en.textContent = node.labelEn || "";
-
-  div.append(ar, en);
-
-  div.addEventListener("mouseenter", () => highlightPath(node.id, true));
-  div.addEventListener("mouseleave", () => highlightPath(node.id, false));
-  div.addEventListener("click", (e) => {
+  div.dataset.id = n.id;
+  div.dataset.group = n.group;
+  div.style.left = `${n.x}px`;
+  div.style.top  = `${n.y}px`;
+  div.innerHTML = `<span class="ar">${n.labelAr}</span><span class="en">${n.labelEn}</span>`;
+  div.addEventListener("mouseenter",()=> highlightPath(n.id,true));
+  div.addEventListener("mouseleave",()=> highlightPath(n.id,false));
+  div.addEventListener("click",e=>{
     e.stopPropagation();
-    focusSubtree(node.id);
-    showInfo(node);
+    focusSubtree(n.id);
+    showInfo(n);
   });
-
   return div;
 }
 
-function pathBetween(a, b, group){
-  // Smooth cubic curve from parent (bottom center) to child (top center)
-  const x1 = a.x + 90, y1 = a.y + 56;
-  const x2 = b.x + 90, y2 = b.y;
-  const dx = (x2 - x1) * 0.35;
-  const d = `M ${x1} ${y1} C ${x1} ${y1+dx}, ${x2} ${y2-dx}, ${x2} ${y2}`;
-  const p = document.createElementNS("http://www.w3.org/2000/svg","path");
-  p.setAttribute("d", d);
+function pathBetween(a,b,group){
+  const x1=a.x+90, y1=a.y+56;
+  const x2=b.x+90, y2=b.y;
+  const dx=(x2-x1)*0.35;
+  const d=`M${x1} ${y1} C${x1} ${y1+dx}, ${x2} ${y2-dx}, ${x2} ${y2}`;
+  const p=document.createElementNS("http://www.w3.org/2000/svg","path");
+  p.setAttribute("d",d);
   p.setAttribute("class","connector");
-  p.dataset.group = group;
-  p.dataset.parent = a.id;
-  p.dataset.child = b.id;
+  p.dataset.group=group;
+  p.dataset.parent=a.id;
+  p.dataset.child=b.id;
   return p;
 }
 
 function drawAll(){
-  // nodes
-  classification.forEach(n => nodesLayer.appendChild(makeNodeEl(n)));
-  // connectors
-  classification.forEach(n => {
-    (n.children||[]).forEach(cid => {
-      const c = nodesById.get(cid);
-      if(!c) return;
-      svg.appendChild(pathBetween(n, c, n.group));
+  classification.forEach(n=> nodesLayer.appendChild(makeNodeEl(n)));
+  classification.forEach(n=>{
+    (n.children||[]).forEach(cid=>{
+      const c=nodesById.get(cid);
+      svg.appendChild(pathBetween(n,c,n.group));
     });
   });
 }
 
-function highlightPath(id, on){
-  // highlight node and its direct connectors
-  const nodeEl = nodesLayer.querySelector(`.node[data-id="${id}"]`);
-  if(!nodeEl) return;
-  nodeEl.classList.toggle("active", on);
+function highlightPath(id,on){
+  nodesLayer.querySelector(`.node[data-id="${id}"]`)
+    ?.classList.toggle("active",on);
   svg.querySelectorAll(`[data-parent="${id}"],[data-child="${id}"]`)
-     .forEach(p => p.style.strokeWidth = on ? "3.6" : "2.2");
+    .forEach(p=>p.style.strokeWidth= on?"3.6":"2.2");
 }
 
-function focusSubtree(rootId){
-  // Dim everything except subtree rooted at rootId and its ancestors
-  const keep = new Set();
-  (function walkDown(id){
-    keep.add(id);
-    (childrenOf.get(id)||[]).forEach(walkDown);
-  })(rootId);
-  (function walkUp(id){
-    const p = parentsOf.get(id);
-    if(p){ keep.add(p); walkUp(p); }
-  })(rootId);
-
-  nodesLayer.querySelectorAll(".node").forEach(el=>{
-    el.classList.toggle("dimmed", !keep.has(el.dataset.id));
-  });
-  svg.querySelectorAll("path.connector").forEach(p=>{
-    const show = keep.has(p.dataset.parent) && keep.has(p.dataset.child);
-    p.classList.toggle("dimmed", !show);
+function focusSubtree(root){
+  const keep=new Set();
+  (function down(id){ keep.add(id); (childrenOf.get(id)||[]).forEach(down); })(root);
+  (function up(id){ const p=parentsOf.get(id); if(p){ keep.add(p); up(p);} })(root);
+  nodesLayer.querySelectorAll(".node").forEach(el=>
+    el.classList.toggle("dimmed",!keep.has(el.dataset.id))
+  );
+  svg.querySelectorAll(".connector").forEach(p=>{
+    const ok= keep.has(p.dataset.parent)&&keep.has(p.dataset.child);
+    p.classList.toggle("dimmed",!ok);
   });
 }
 
 function clearFocus(){
   nodesLayer.querySelectorAll(".node").forEach(el=>el.classList.remove("dimmed","active"));
-  svg.querySelectorAll("path.connector").forEach(p=>p.classList.remove("dimmed"));
+  svg.querySelectorAll(".connector").forEach(p=>p.classList.remove("dimmed"));
 }
 
-function showInfo(node){
-  infoContent.innerHTML = `
-    <h2>${node.labelAr}${node.labelEn ? " | " + node.labelEn : ""}</h2>
-    <p>التفاصيل والتعريفات والأمثلة يمكن وضعها هنا.<br/>Details/definitions/examples can go here.</p>
-    <p><strong>Group:</strong> ${node.group}</p>
-    <p><strong>Children:</strong> ${(node.children||[]).length}</p>
+function showInfo(n){
+  infoContent.innerHTML=`
+    <h2>${n.labelAr}${n.labelEn? " | "+n.labelEn:""}</h2>
+    <p>هنا يمكن وضع التعريفات والأمثلة.<br/>Definitions/examples go here.</p>
   `;
   infoPanel.classList.remove("hidden");
 }
 
-closeInfo.addEventListener("click", ()=> infoPanel.classList.add("hidden"));
-document.addEventListener("click", (e)=>{
+closeInfo.addEventListener("click",()=>infoPanel.classList.add("hidden"));
+document.addEventListener("click",e=>{
   if(!infoPanel.contains(e.target)) clearFocus();
 });
 
