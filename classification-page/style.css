@@ -6,13 +6,11 @@
   --noun:#16a34a;
   --verb:#2563eb;
   --particle:#7c3aed;
-  --hover:#e2f2ff;
 }
 
 *{box-sizing:border-box}
-html,body{height:100%}
+html,body{height:100%; margin:0;}
 body{
-  margin:0;
   background:var(--bg);
   color:var(--fg);
   font:16px/1.45 system-ui, Segoe UI, Roboto, Arial, "Noto Naskh Arabic", "Amiri", sans-serif;
@@ -30,50 +28,79 @@ h1{font-size:18px; margin:0}
 .legend .particle{background:var(--particle)}
 
 #diagram-container{
-  position:relative; height:calc(100vh - 58px); overflow:auto; background:
-    conic-gradient(from 90deg at 1px 1px, #0000 90deg, #eef2f7 0) 0 0/24px 24px;
+  position:relative;
+  height:calc(100vh - 58px);
+  overflow:auto;
+  background: conic-gradient(from 90deg at 1px 1px, #0000 90deg, #eef2f7 0) 0 0/24px 24px;
 }
 #connectors{
-  position:absolute; inset:0; width:2000px; height:1500px; /* big canvas; adjust if needed */
+  position:absolute; inset:0;
 }
-#nodes{position:absolute; inset:0; width:2000px; height:1500px}
+#nodes{
+  position:absolute; inset:0;
+}
 
 .node{
-  position:absolute; min-width:140px; max-width:240px;
+  position:absolute;
+  min-width:140px; max-width:240px;
   padding:8px 10px;
-  background:#fff; border:2px solid var(--border); border-radius:10px;
+  background:#fff;
+  border:2px solid var(--border);
+  border-radius:10px;
   box-shadow:0 2px 8px rgba(15,23,42,.06);
-  cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-  text-align:center; user-select:none;
+  cursor:pointer;
+  transition:transform .15s, box-shadow .15s, border-color .15s;
+  text-align:center;
+  user-select:none;
 }
-.node .ar{display:block; font-weight:600; font-size:15px}
-.node .en{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+.node .ar{
+  display:block;
+  font-weight:600;
+  font-size:15px;
+}
+.node .en{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:2px;
+}
+
 .node[data-group="noun"]{border-color:var(--noun)}
 .node[data-group="verb"]{border-color:var(--verb)}
 .node[data-group="particle"]{border-color:var(--particle)}
-.node:hover{transform:translateY(-1px); box-shadow:0 6px 14px rgba(15,23,42,.12)}
+
+.node:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 14px rgba(15,23,42,.12);
+}
 
 .hidden{display:none}
 
 aside#info-panel{
-  position:fixed; top:0; right:0; width:340px; height:100vh; background:#fff;
-  border-left:1px solid var(--border); padding:16px; overflow:auto; box-shadow:-8px 0 24px rgba(15,23,42,.08);
+  position:fixed; top:0; right:0;
+  width:340px; height:100vh;
+  background:#fff; border-left:1px solid var(--border);
+  padding:16px; overflow:auto;
+  box-shadow:-8px 0 24px rgba(15,23,42,.08);
 }
 #close-info{
-  position:absolute; top:8px; left:8px; width:28px; height:28px;
-  border:none; background:#f1f5f9; border-radius:6px; cursor:pointer; font-size:18px;
+  position:absolute; top:8px; left:8px;
+  width:28px; height:28px;
+  border:none; background:#f1f5f9;
+  border-radius:6px; cursor:pointer; font-size:18px;
 }
 #info-content h2{margin-top:28px; margin-bottom:8px; font-size:18px}
-#info-content p{margin:0 0 10px 0; color:var(--muted); font-size:14px}
+#info-content p{margin:0 0 10px;color:var(--muted);font-size:14px}
 
-/* connector styles */
+/* connectors */
 path.connector{
-  fill:none; stroke:#94a3b8; stroke-width:2.2; vector-effect:non-scaling-stroke;
+  fill:none;
+  stroke-width:2.2;
+  vector-effect:non-scaling-stroke;
 }
 path.connector[data-group="noun"]{stroke:var(--noun)}
 path.connector[data-group="verb"]{stroke:var(--verb)}
 path.connector[data-group="particle"]{stroke:var(--particle)}
 
-/* collapsible highlight */
-.node.active{outline:3px solid #facc15; outline-offset:2px}
+.node.active{outline:3px solid #facc15;outline-offset:2px}
 .dimmed{opacity:.18}
